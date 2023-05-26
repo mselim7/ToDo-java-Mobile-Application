@@ -2,12 +2,13 @@ package com.example.todo_list;
 
 public class User {
     private String username;
+    private String Email;
 
     private String password;
 
 
-    public User(String username, String password) {
-
+    public User(String username,String Email, String password) {
+        this.Email=Email;
         this.username = username;
         this.password = password;
     }
@@ -15,6 +16,13 @@ public class User {
     public User() {
     }
 
+    public String getEmail() {
+        return Email;
+    }
+
+    public void setEmail(String email) {
+        Email = email;
+    }
 
     public void setUsername(String username) {
         this.username = username;

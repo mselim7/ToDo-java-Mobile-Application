@@ -17,12 +17,13 @@ Button loginpage;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Intent intent = new Intent(MainActivity.this, sign_in.class);
+        startActivity(intent);
         loginpage = findViewById(R.id.Login_page);
         loginpage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, sign_in.class);
-                startActivity(intent);
+
             }
         });
     }
