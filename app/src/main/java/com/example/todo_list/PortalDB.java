@@ -16,14 +16,14 @@ public class PortalDB extends SQLiteOpenHelper {
     SQLiteDatabase PortalDb;
 
     public PortalDB(@Nullable Context context) {
-        super(context, databaseName, null, 13);
+        super(context, databaseName, null, 14);
     }
 
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         System.out.println("create DB");
-        db.execSQL("create table User(UserName text primary key , password text not null)");
+        db.execSQL("create table User(UserName text primary key ,Email text, password text not null)");
         db.execSQL("create table Task (title text,status text,priority integer,UserName text,Foreign key(UserName) References User(UserName) )");
     }
 
@@ -54,6 +54,7 @@ public class PortalDB extends SQLiteOpenHelper {
         }
 
         ContentValues row = new ContentValues();
+        row.put("Email", user.getEmail());
         row.put("UserName", user.getUsername());
         row.put("password", user.getPassword());
         PortalDb = getWritableDatabase();
