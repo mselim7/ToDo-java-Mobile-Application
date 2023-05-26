@@ -36,7 +36,7 @@ public class home_page extends AppCompatActivity {
         tasks = new ArrayList<>();
         input = findViewById(R.id.inp);
         list  = findViewById(R.id.listView);
-        adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1,tasks);
+        adapter = new ArrayAdapter<>(getApplicationContext(), R.layout.list_view_item,tasks);
         list.setAdapter(adapter);
 
 
