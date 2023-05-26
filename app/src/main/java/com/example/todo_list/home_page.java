@@ -76,11 +76,24 @@ public class home_page extends AppCompatActivity {
             }
         });
 
-        list.setOnClickListener(new View.OnClickListener() {
+
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View view) {
-                
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String item  = tasks.get(i);
+                completed.add(item);
+                Toast toast = Toast.makeText(getApplicationContext(),"DONE",Toast.LENGTH_SHORT);
+                toast.show();
+                tasks.remove(i);
+                adapter.notifyDataSetChanged();
+
             }
         });
+//        list.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//            }
+//        });
     }
 }
