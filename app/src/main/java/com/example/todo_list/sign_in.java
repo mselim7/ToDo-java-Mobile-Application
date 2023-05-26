@@ -36,9 +36,10 @@ public class sign_in extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "User not found", Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(getApplicationContext(), "Login successfully", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(sign_in.this, home_page.class);
+                    startActivity(intent);
                 }
-//                Intent intent = new Intent(sign_in.this, MainActivity.class);
-//                startActivity(intent);
+
             }
         });
         back_btn.setOnClickListener(new View.OnClickListener() {

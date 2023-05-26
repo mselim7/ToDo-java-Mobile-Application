@@ -18,6 +18,7 @@ public class sign_up extends Activity {
         signin = findViewById(R.id.sign_in);
         EditText usernameTextField = (EditText)findViewById(R.id.user);
         EditText passwordTextField = (EditText)findViewById(R.id.pass);
+        EditText emailTextField = (EditText)findViewById(R.id.email);
         Button SignUpBTN = (Button) findViewById(R.id.signup_button);
         PortalDB db = new PortalDB(this);
         Button signUpBTN = (Button) findViewById(R.id.signup_button);
@@ -25,7 +26,7 @@ public class sign_up extends Activity {
             @Override
             public void onClick(View view) {
                 boolean flag ;
-                User user1 = new User(usernameTextField.getText().toString(),passwordTextField.getText().toString());
+                User user1 = new User(usernameTextField.getText().toString(),emailTextField.getText().toString(),passwordTextField.getText().toString());
                 flag = db.addNewUser(user1);
                 if(flag){
                     Toast.makeText(getApplicationContext(), "Rigestered Successfull", Toast.LENGTH_LONG).show();
@@ -35,6 +36,9 @@ public class sign_up extends Activity {
                     Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG).show();
                 }
                 System.out.println("omar "+usernameTextField.getText());
+
+                Intent intent = new Intent(sign_up.this, home_page.class);
+                startActivity(intent);
             }
         });
 
