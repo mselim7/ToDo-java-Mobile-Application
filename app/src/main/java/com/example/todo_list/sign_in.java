@@ -32,5 +32,13 @@ public class sign_in extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        TextView forgot = (TextView) findViewById(R.id.forget_pass);
+        forgot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(sign_in.this,reset_pass.class);
+                startActivity(intent);
+            }
+        });
 }
 }

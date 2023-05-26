@@ -4,4 +4,5 @@
     <string name="signup">Signup</string>
     <string name="signin">Signup</string>
     <string name="reset">Reset</string>
+    <string name="trouble_logging_in">Trouble logging in?</string>
 </resources>
