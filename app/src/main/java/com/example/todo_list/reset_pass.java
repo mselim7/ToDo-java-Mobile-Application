@@ -25,7 +25,7 @@ public class reset_pass extends AppCompatActivity {
     send_btn.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            Toast.makeText(getApplicationContext(),"password sent",Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),"Check your  Email",Toast.LENGTH_LONG).show();
             Intent intent = new Intent(reset_pass.this,sign_in.class);
             startActivity(intent);
 
