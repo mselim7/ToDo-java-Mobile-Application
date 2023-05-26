@@ -20,7 +20,7 @@ public class sign_in extends AppCompatActivity {
         setContentView(R.layout.sign_in);
         signup = findViewById(R.id.signup_button);
         Button signIn = (Button) findViewById(R.id.sign_in);
-        ImageButton back_btn = (ImageButton) findViewById(R.id.back_button);
+        //ImageButton back_btn = (ImageButton) findViewById(R.id.back_button);
         EditText usernameTextField = (EditText)findViewById(R.id.user);
         EditText passwordTextField = (EditText)findViewById(R.id.pass);
         PortalDB db = new PortalDB(this);
@@ -42,13 +42,13 @@ public class sign_in extends AppCompatActivity {
 
             }
         });
-        back_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(sign_in.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
+//        back_btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(sign_in.this, MainActivity.class);
+//                startActivity(intent);
+//            }
+//        });
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
