@@ -46,11 +46,11 @@ public class PortalDB extends SQLiteOpenHelper {
         return UserName;
     }
 
-    public String addNewUser(User user) {
+    public boolean addNewUser(User user) {
         PortalDb = getReadableDatabase();
         Cursor c = PortalDb.rawQuery("Select * from User where UserName=? ", new String[]{user.getUsername()});
         if (c.getCount() > 0) {
-            return "Username already exist";
+            return false;
         }
 
         ContentValues row = new ContentValues();
@@ -59,7 +59,7 @@ public class PortalDB extends SQLiteOpenHelper {
         PortalDb = getWritableDatabase();
         PortalDb.insert("User", null, row);
         PortalDb.close();
-        return "Registered Successfully";
+        return true;
     }
 
     public static String login( PortalDB db, String username, String password) {
