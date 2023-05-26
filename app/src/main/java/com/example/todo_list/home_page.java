@@ -3,6 +3,7 @@ package com.example.todo_list;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,6 +20,7 @@ public class home_page extends AppCompatActivity {
     ListView list;
     ArrayAdapter<String> adapter;
     ArrayList<String> tasks;
+    ArrayList<String> completed;
     EditText input;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +36,11 @@ public class home_page extends AppCompatActivity {
         });
         addNote = findViewById(R.id.add_item);
         tasks = new ArrayList<>();
+        completed = new ArrayList<>();
         input = findViewById(R.id.inp);
         list  = findViewById(R.id.listView);
-        adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1,tasks);
+        adapter = new ArrayAdapter<>(getApplicationContext(), R.layout.list_view_item,tasks);
         list.setAdapter(adapter);
-
 
         addNote.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,7 +63,37 @@ public class home_page extends AppCompatActivity {
             }
         });
 
+        list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                String item  = tasks.get(position);
+                String msg = item+" is Remover";
+                Toast toast = Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT);
+                toast.show();
+                tasks.remove(position);
+                adapter.notifyDataSetChanged();
+                return false;
+            }
+        });
 
 
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String item  = tasks.get(i);
+                completed.add(item);
+                Toast toast = Toast.makeText(getApplicationContext(),"DONE",Toast.LENGTH_SHORT);
+                toast.show();
+                tasks.remove(i);
+                adapter.notifyDataSetChanged();
+
+            }
+        });
+//        list.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//            }
+//        });
     }
 }

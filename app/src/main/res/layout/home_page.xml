@@ -65,9 +65,10 @@
             android:layout_marginEnd="128dp"
             android:layout_marginBottom="31dp"
             android:hint="Add an Item "
+            android:textColor="@color/white"
             android:inputType="textPersonName"
             android:text=""
-            android:textColorHint="@color/white"></EditText>
+            android:textColorHint="@color/white"/>
 
         <ImageView
             android:id="@+id/add_item"
@@ -83,7 +84,7 @@
             android:layout_marginEnd="40dp"
             android:layout_marginBottom="26dp"
             android:layout_toRightOf="@+id/inp"
-            android:src="@drawable/plus_svgrepo_com"></ImageView>
+            android:src="@drawable/plus_svgrepo_com"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -94,12 +95,14 @@
 
         <ListView
             android:id="@+id/listView"
-
+            style="@style/Theme.Todolist"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/background"
             android:cacheColorHint="@color/pink"
-            android:textColor="@color/design_default_color_surface"
-            android:textStyle="bold"></ListView>
+            android:listSelector="@color/lightgrey"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+           />
     </RelativeLayout>
 </RelativeLayout>
