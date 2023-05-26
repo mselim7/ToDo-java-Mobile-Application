@@ -94,12 +94,14 @@
 
         <ListView
             android:id="@+id/listView"
-
+            style="@style/Theme.Todolist"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/background"
             android:cacheColorHint="@color/pink"
-            android:textColor="@color/design_default_color_surface"
-            android:textStyle="bold"></ListView>
+            android:listSelector="@color/lightgrey"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+           ></ListView>
     </RelativeLayout>
 </RelativeLayout>
