@@ -37,7 +37,7 @@ public class sign_up extends Activity {
                 }
                 System.out.println("omar "+usernameTextField.getText());
 
-                Intent intent = new Intent(sign_up.this, home_page.class);
+                Intent intent = new Intent(sign_up.this, MainActivity.class);
                 startActivity(intent);
             }
         });
