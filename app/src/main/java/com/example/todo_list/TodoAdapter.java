@@ -21,6 +21,7 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder
 
     public interface OnTodoItemClickListener {
         void onItemClick(int position);
+
         void onItemLongClick(int position);
     }
 
@@ -54,10 +55,12 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder
         holder.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             item.setChecked(isChecked);
             if (isChecked) {
-                Toast.makeText(buttonView.getContext(), item.getText()+" Done", Toast.LENGTH_SHORT).show();
+                PortalDB db = new PortalDB(activity.getApplicationContext());
+                db.updateStat("m",item.getText());
+//                Toast.makeText(buttonView.getContext(), item.getText() + " Done", Toast.LENGTH_SHORT).show();
                 activity.addItem2(item.getText());
                 activity.deleteItem(position);
-                activity.showNotification("Task","Task "+ item.getText() +" Done","Notification about Task Done");
+                activity.showNotification("Task", "Task " + item.getText() + " Done", "Notification about Task Done");
             }
         });
 

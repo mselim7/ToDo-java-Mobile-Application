@@ -110,10 +110,9 @@
         android:textColor="@color/white"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inp"
-        app:layout_constraintVertical_bias="0.126" />
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="0dp" />
 
     <TextView
         android:id="@+id/mm"
@@ -133,22 +132,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.635" />
+        app:layout_constraintVertical_bias="0.553" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_views"
-        android:layout_width="405dp"
-        android:layout_height="168dp"
+        android:layout_width="407dp"
+        android:layout_height="224dp"
         android:layout_margin="16dp"
         android:cacheColorHint="@color/pink"
         android:listSelector="@color/black"
         android:textColor="@color/white"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recycler_view"
-        app:layout_constraintVertical_bias="0.485" />
+        app:layout_constraintVertical_bias="0.314"
+        tools:layout_editor_absoluteX="1dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
