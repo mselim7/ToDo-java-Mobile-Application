@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements TodoAdapter.OnTod
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        PortalDB db = new PortalDB(this);
         items = new ArrayList<>();
         input = findViewById(R.id.inp);
         addNote = findViewById(R.id.add_item);
@@ -51,16 +51,30 @@ public class MainActivity extends AppCompatActivity implements TodoAdapter.OnTod
         adapter = new TodoAdapter(items, this, this);
         recyclerView.setAdapter(adapter);
 
-        items2= new ArrayList<>();
+        items2 = new ArrayList<>();
         recyclerView2 = findViewById(R.id.recycler_views);
         recyclerView2.setLayoutManager(new LinearLayoutManager(this));
-        adapter2 = new TodoAdapter(items2, this,this);
+        adapter2 = new TodoAdapter(items2, this, this);
         recyclerView2.setAdapter(adapter2);
+        for (int i = 0; i < db.RetrieveTask("m").size(); i++) {
+//            String msg = "New " + db.RetrieveTask("m").get(i);
+//            Toast toast = Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT);
+//            toast.show();
+            if (db.RetrieveTask("m").get(i).toString() != null) {
 
+                addItem(db.RetrieveTask("m").get(i).toString());
+
+            }
+        }
         ImageView btn = findViewById(R.id.clearAllBtn);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                String msg = "New " + db.RetrieveTask("m","");
+//                Toast toast = Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT);
+//                toast.show();
+//                System.out.println();
+
                 items.clear();
                 adapter.notifyDataSetChanged();
             }
@@ -85,13 +99,22 @@ public class MainActivity extends AppCompatActivity implements TodoAdapter.OnTod
                     toast.show();
                 } else {
                     addItem(txt);
-                    String msg = txt + " is Added";
-                    Toast toast = Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT);
-                    toast.show();
-                    adapter.notifyDataSetChanged();
-                    input.setText("");
-                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                    Task task = new Task(txt, "m", "incompleted");
+                    boolean checker = db.addNewTask(task);
+                    if (checker) {
+                        String msg = txt + " is Added";
+                        Toast toast = Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT);
+                        toast.show();
+                        adapter.notifyDataSetChanged();
+                        input.setText("");
+                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                    } else {
+                        String msg = txt + "Error";
+                        Toast toast = Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+
                 }
             }
         });
@@ -100,6 +123,8 @@ public class MainActivity extends AppCompatActivity implements TodoAdapter.OnTod
     @Override
     public void onItemClick(int position) {
         TodoItem item = items.get(position);
+
+
         item.setChecked(!item.isChecked());
         adapter.notifyItemChanged(position);
     }
@@ -116,6 +141,7 @@ public class MainActivity extends AppCompatActivity implements TodoAdapter.OnTod
     }
 
     public void addItem2(String text) {
+        PortalDB db = new PortalDB(this);
         TodoItem newItem = new TodoItem(text);
         newItem.setChecked2(true); // set isChecked2 to true by default
         items2.add(newItem);
@@ -131,6 +157,7 @@ public class MainActivity extends AppCompatActivity implements TodoAdapter.OnTod
         items.clear();
         adapter.notifyDataSetChanged();
     }
+
     public void showNotification(String title, String task, String description) {
         // Create a notification channel for Android Oreo and above
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

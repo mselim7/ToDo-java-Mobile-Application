@@ -1,4 +1,5 @@
 package com.example.todo_list;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -16,7 +17,7 @@ public class PortalDB extends SQLiteOpenHelper {
     SQLiteDatabase PortalDb;
 
     public PortalDB(@Nullable Context context) {
-        super(context, databaseName, null, 14);
+        super(context, databaseName, null, 15);
     }
 
 
@@ -24,10 +25,10 @@ public class PortalDB extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         System.out.println("create DB");
         db.execSQL("create table User(UserName text primary key ,Email text, password text not null)");
-        db.execSQL("create table Task (title text,status text,priority integer,UserName text,Foreign key(UserName) References User(UserName) )");
+        db.execSQL("create table Task (title text,status text,UserName text,Foreign key(UserName) References User(UserName) )");
     }
 
-    public String validateData( String userName, String password) {
+    public String validateData(String userName, String password) {
         PortalDb = getReadableDatabase();
         String[] rowdetails = {"UserName"};
         String[] args = {userName, password};
@@ -63,9 +64,25 @@ public class PortalDB extends SQLiteOpenHelper {
         return true;
     }
 
-    public static String login( PortalDB db, String username, String password) {
+    public boolean addNewTask(Task task) {
+        PortalDb = getReadableDatabase();
+        Cursor c = PortalDb.rawQuery("Select * from Task where title=? ", new String[]{task.getTitle()});
+        if (c.getCount() > 0) {
+            return false;
+        }
+        ContentValues row = new ContentValues();
+        row.put("title", task.getTitle());
+        row.put("UserName", task.getUsername());
+        row.put("status", task.getStatus());
+        PortalDb = getWritableDatabase();
+        PortalDb.insert("Task", null, row);
+        PortalDb.close();
+        return true;
+    }
 
-        String validate = String.valueOf(db.validateData( username, password));
+    public static String login(PortalDB db, String username, String password) {
+
+        String validate = String.valueOf(db.validateData(username, password));
         if (validate == "Not Found") {
             System.out.println("not found");
             return "Not Found";
@@ -79,5 +96,73 @@ public class PortalDB extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS Task");
         db.execSQL("DROP TABLE IF EXISTS User");
         onCreate(db);
+    }
+
+//    public String RetrieveTask(String user) {
+//        String title ="Error";
+//
+//        PortalDb = getReadableDatabase();
+//        Cursor c = PortalDb.rawQuery("Select * from Task where UserName=? And status=? ", new String[]{user,"completed"});
+//        if (c != null) {
+//
+//            c.moveToFirst();
+//            if (c.getCount() > 0) {
+//                System.out.println(c.toString());
+//                title = c.getString(0);
+//            }
+//        }
+//        PortalDb.close();
+//        return title;
+//    }
+
+    public ArrayList RetrieveTask(String user) {
+        ArrayList list = new ArrayList<>();
+        String title = "Error";
+        PortalDb = getReadableDatabase();
+        Cursor c = PortalDb.rawQuery("Select * from Task where UserName=? And status=? ", new String[]{user, "completed"});
+        if (c != null) {
+            c.moveToFirst();
+            while(!c.isAfterLast())
+             {
+                title = c.getString(0);
+                list.add(title);
+                c.moveToNext();
+                System.out.println(c.toString());
+            }
+        }
+        PortalDb.close();
+        return list;
+    }
+//    public void updateCourse(String status,String Username , String title) {
+//
+//        // calling a method to get writable database.
+//        PortalDb = getWritableDatabase();
+//        ContentValues values = new ContentValues();
+//
+//        // on below line we are passing all values
+//        // along with its key and value pair.
+//        values.put("status", status);
+//        values.put("UserName", Username);
+//        values.put("title", title);
+//
+//        // on below line we are calling a update method to update our database and passing our values.
+//        // and we are comparing it with name of our course which is stored in original name variable.
+//        PortalDb.update("Task", values, "status=?", new String[]{"completed"});
+//        PortalDb.close();
+//    }
+
+    //    public void updateInformaation(String username, ContentValues values) {
+//        PortalDb = getReadableDatabase();
+//        PortalDb.update("TaskSeeker", values, "status=?", new String[]{"completed"});
+//        PortalDb.close();
+//    }
+    public void updateStat(String username, String title) {
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("status", "completed");
+
+        PortalDb = getReadableDatabase();
+        PortalDb.update("Task", contentValues, "UserName=? and title=?", new String[]{username, title});
+        PortalDb.close();
     }
 }
